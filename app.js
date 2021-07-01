@@ -6,8 +6,11 @@ const expressHbs = require('express-handlebars');
 
 const app = express();
 
-app.engine('handlebars', expressHbs()); // express handlebars unlike pug is not built in
-app.set('view engine', 'handlebars');
+app.engine('hbs', expressHbs({
+  layoutsDir: 'views/layouts', 
+  defaultLayout: 'main-layout', 
+  extname: 'hbs'})); // express handlebars unlike pug is not built in
+app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 const adminData = require('./routes/admin');
