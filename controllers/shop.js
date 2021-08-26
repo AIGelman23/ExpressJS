@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Product = require('../models/product');
 
 exports.getProducts = (req, res, next) => {
@@ -43,6 +44,7 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
+	const userName = req.user.name;
 	req.user
 		.getCart()
 		.then((cart) => {
@@ -51,7 +53,7 @@ exports.getCart = (req, res, next) => {
 				.then((products) => {
 					res.render('shop/cart', {
 						path: '/cart',
-						pageTitle: 'Your Cart',
+						pageTitle: userName+"'s Cart",
 						products: products
 					});
 				})
@@ -144,12 +146,15 @@ exports.postOrder = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
+	const userName = req.user.name;
+	res.locals.moment = moment;
 	req.user
 		.getOrders({include: ['products']})
 		.then(orders => {
 		res.render('shop/orders', {
 			path: '/orders',
-			pageTitle: 'Your Orders',
+			user: userName,
+			pageTitle: userName +"'s Orders",
 			orders: orders
 	});
 });
