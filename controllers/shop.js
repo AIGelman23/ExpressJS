@@ -1,4 +1,3 @@
-const moment = require('moment');
 const Product = require('../models/product');
 
 exports.getProducts = (req, res, next) => {
@@ -147,7 +146,6 @@ exports.postOrder = (req, res, next) => {
 
 exports.getOrders = (req, res, next) => {
 	const userName = req.user.name;
-	res.locals.moment = moment;
 	req.user
 		.getOrders({include: ['products']})
 		.then(orders => {

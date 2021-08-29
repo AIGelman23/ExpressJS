@@ -11,7 +11,14 @@
           <% orders.forEach(order => { %>
           <li style="list-style: none">
             <h3><%= user %>'s Order #<%= order.id %></h3>
-            <h5>Placed <%= moment(order.createdAt).format('MMMM Do YYYY, h:mm:ss a'); %></h5>
+            <h5>Placed <%= new Intl.DateTimeFormat('en-US', {
+              hour: 'numeric',
+              minute: 'numeric',
+              // second: 'numeric',
+              year: 'numeric',
+              month: 'numeric',
+              day: 'numeric'
+            }).format(order.createdAt); %></h5>
             <ul>
             <% order.products.forEach(product => { %>
             <li style="list-style: none"><%= product.title %> (<%= product.orderItem.quantity %>)</li>
